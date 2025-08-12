@@ -1,0 +1,1609 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background: #000;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 4680px; /* 100vh + 720px for 3rd page + 720px for 4th page + 1800px for features section + 1440px top offset */
+    margin: 0;
+    background: #000;
+    overflow-x: hidden;
+}
+
+/* Landing Page */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+/* image 3 */
+.image-3 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #404040);
+}
+
+/* Background Video */
+.bg-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    z-index: 1;
+    /* Ensure video doesn't interfere with text readability */
+    filter: brightness(0.8) contrast(1.1);
+    /* Ensure video is visible */
+    opacity: 1;
+    visibility: visible;
+    /* Optimize for performance */
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Video overlay for better text readability */
+.bg-video::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* Video Loading Indicator */
+.video-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 18px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: none;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+/* bg image - fallback */
+.bg-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: url('public/bg image.png') center/cover no-repeat;
+    z-index: 0;
+    /* Show by default, hide when video loads */
+    display: block;
+    /* Optimize for performance */
+    will-change: transform;
+    transform: translateZ(0);
+    /* Ensure it's behind the video */
+    z-index: 0;
+}
+
+/* Mobile optimization for video background */
+@media (max-width: 768px) {
+    .bg-video {
+        /* Slightly reduce brightness on mobile for better performance */
+        filter: brightness(0.7) contrast(1.2);
+    }
+    
+    .bg-video::after {
+        /* Stronger overlay on mobile for better text readability */
+        background: rgba(0, 0, 0, 0.4);
+    }
+    
+    .video-loading {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+}
+
+/* Slow connection optimization */
+@media (max-width: 480px) {
+    .bg-video {
+        /* Disable video on very small screens for better performance */
+        display: none !important;
+    }
+    
+    .bg-image {
+        display: block !important;
+    }
+    
+    .video-loading {
+        display: none !important;
+    }
+}
+
+/* bg image - fallback */
+.bg-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: url('public/bg image.png') center/cover no-repeat;
+    z-index: 0;
+    /* Show by default, hide when video loads */
+    display: block;
+}
+
+/* primary nav bar */
+.header {
+    position: absolute;
+    width: 90%;
+    max-width: 1141px;
+    height: 60px;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border-radius: 10px;
+    padding: 0 20px;
+}
+
+/* Machaan */
+.logo {
+    position: relative;
+    width: auto;
+    height: auto;
+    font-family: 'Playfair Display', 'TAN - PEARL', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 0.85;
+    color: #4d4d4d;
+    letter-spacing: 0.003em;
+    text-shadow: none;
+    text-transform: none;
+    font-variant: normal;
+    opacity: 0.95;
+}
+
+/* primary nav */
+.nav {
+    position: relative;
+    width: 477px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Common styles for all navigation links */
+.nav-link {
+    background: transparent !important;
+    border: none !important;
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+.nav-link:active,
+.nav-link:focus {
+    background: transparent !important;
+    outline: none;
+}
+
+/* ABOUT US */
+.nav-link.about-us {
+    position: relative;
+    width: auto;
+    height: auto;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+}
+
+/* accommodation */
+.nav-link.accommodation {
+    position: relative;
+    width: auto;
+    height: auto;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+}
+
+/* experiences */
+.nav-link.experiences {
+    position: relative;
+    width: auto;
+    height: auto;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+}
+
+/* contact */
+.nav-link.contact {
+    position: relative;
+    width: auto;
+    height: auto;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+}
+
+/* button bn */
+.book-now-btn {
+    position: relative;
+    width: auto;
+    height: auto;
+    background: #413017;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Machaan */
+.machaan-bg {
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: 64px;
+    top: 470px;
+    z-index: 1;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.machaan-logo-image {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    filter: brightness(1.4) contrast(1.5) saturate(1.2);
+}
+
+/* Village */
+.village-text {
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: 5%;
+    top: 50%;
+    font-family: 'Le Jour Script Personal Use', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(60px, 10vw, 143px);
+    line-height: 1;
+    color: #FFFFFF;
+    z-index: 10;
+}
+
+/* Luxury Jungle Resort in Pench National Park, Madhya Pradesh, India */
+.description {
+    position: absolute;
+    width: 40%;
+    max-width: 430px;
+    height: auto;
+    right: 5%;
+    top: 56%;
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(14px, 1.5vw, 20px);
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+}
+
+/* About Us Section */
+.about-us {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+/* Background Sky */
+.bg-sky {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: url('public/bg sky.png') center/cover no-repeat;
+}
+
+/* Background Gate */
+.bg-gate {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: url('public/bg gate.png') center/cover no-repeat;
+}
+
+/* White Gradient Top */
+.white-gradient-top {
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    left: 0;
+    top: 0;
+    background: url('public/white gradient top.png') center/cover no-repeat;
+}
+
+/* Tree Right */
+.tree-right {
+    position: absolute;
+    width: 30%;
+    max-width: 368px;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background: url('public/tree right.png') center/cover no-repeat;
+}
+
+/* Tree Left */
+.tree-left {
+    position: absolute;
+    width: 30%;
+    max-width: 367px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: url('public/tree left.png') center/cover no-repeat;
+}
+
+/* Main Headline - breathes */
+.breathes {
+    position: absolute;
+    width: 80%;
+    max-width: 938px;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'TAN - PEARL', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(60px, 12vw, 169px);
+    line-height: 1;
+    color: #FFFFFF;
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    z-index: 10;
+}
+
+/* Sub Headline - Where the jungle */
+.where-jungle {
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%);
+    font-family: 'Le Jour Serif Personal Use Only', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(20px, 3vw, 27px);
+    line-height: 1;
+    color: #FFFFFF;
+    text-align: center;
+    z-index: 10;
+}
+
+/* White Gradient Bottom */
+.white-gradient-bottom {
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    left: 0;
+    top: 30%;
+    background: url('public/white gradient bottom.png') center/cover no-repeat;
+}
+
+/* Top Palm */
+.top-palm {
+    position: absolute;
+    width: 25%;
+    max-width: 332px;
+    height: auto;
+    right: 5%;
+    top: 0;
+    background: url('public/top palm.png') center/contain no-repeat;
+}
+
+/* Top Black Gradient */
+.top-black-gradient {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    left: 0;
+    top: 0;
+    background: url('public/top black gradient.png') center/cover no-repeat;
+}
+
+/* Left Leaves */
+.left-leaves {
+    position: absolute;
+    width: 40%;
+    max-width: 519px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: url('public/left leaves.png') center/cover no-repeat;
+}
+
+/* Leaves Right */
+.leaves-right {
+    position: absolute;
+    width: 35%;
+    max-width: 427px;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background: url('public/left leaves.png') center/cover no-repeat;
+    transform: scaleX(-1);
+}
+
+/* About Description Text */
+.about-description {
+    position: absolute;
+    width: 60%;
+    max-width: 627px;
+    height: auto;
+    left: 50%;
+    top: 70%;
+    transform: translateX(-50%);
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #413017;
+    z-index: 10;
+}
+
+/* White Gradient Transition */
+.white-gradient-transition {
+    position: absolute;
+    width: 100%;
+    height: 15%;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(249, 241, 220, 0) 0%, #F9F1DC 100%);
+}
+
+/* Accommodation Hornbill Section */
+.accommodation-hornbill {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    left: 1px;
+    top: 1440px;
+    background: #F9F1DC;
+}
+
+/* Group 3 Container */
+.group-3 {
+    position: absolute;
+    width: 1186px;
+    height: 573px;
+    left: 36px;
+    top: 88px;
+}
+
+/* WhatsApp Image Placeholders */
+.whatsapp-image-1,
+.whatsapp-image-2,
+.whatsapp-image-3,
+.whatsapp-image-4,
+.whatsapp-image-5,
+.whatsapp-image-6 {
+    position: absolute;
+    background: linear-gradient(45deg, #537D07, #8BC34A);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* WhatsApp Image 2025-06-27 at 3.34.33 PM 1 */
+.whatsapp-image-1 {
+    width: 180px;
+    height: 245px;
+    left: 274px;
+    top: 291px;
+}
+
+/* WhatsApp Image 2025-06-27 at 3.34.26 PM (2) 1 */
+.whatsapp-image-2 {
+    width: 195px;
+    height: 148px;
+    left: 654px;
+    top: 88px;
+}
+
+/* WhatsApp Image 2025-06-27 at 3.34.26 PM 1 */
+.whatsapp-image-3 {
+    width: 190px;
+    height: 203px;
+    left: 816px;
+    top: 437px;
+}
+
+/* WhatsApp Image 2025-06-27 at 3.34.30 PM 1 */
+.whatsapp-image-4 {
+    width: 238px;
+    height: 162px;
+    left: 36px;
+    top: 88px;
+}
+
+/* WhatsApp Image 2025-06-27 at 3.34.22 PM 1 */
+.whatsapp-image-5 {
+    width: 250px;
+    height: 193px;
+    left: 972px;
+    top: 181px;
+}
+
+/* WhatsApp Image 2025-06-27 at 3.34.30 PM (1) 1 */
+.whatsapp-image-6 {
+    width: 140px;
+    height: 187px;
+    left: 65px;
+    top: 474px;
+}
+
+/* Frame 4 - Text Content */
+.frame-4 {
+    position: absolute;
+    width: 504px;
+    height: 500px;
+    left: 388px;
+    top: 161px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 32px;
+}
+
+/* WE BELIEVE IN */
+.we-believe-in {
+    width: 504px;
+    height: 25px;
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    color: #537D07;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* Group 2 - Villa Names Container */
+.group-2 {
+    width: 504px;
+    height: 301px;
+    position: relative;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+/* Fresh breeze */
+.fresh-breeze {
+    position: absolute;
+    width: 504px;
+    height: 82px;
+    left: calc(50% - 504px/2);
+    top: 57px;
+    font-family: 'TAN - PEARL', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 82px;
+    text-align: center;
+    color: #537D07;
+}
+
+/* Cozy rooms */
+.cozy-rooms {
+    position: absolute;
+    width: 453px;
+    height: 82px;
+    left: calc(50% - 453px/2 + 0.5px);
+    top: 130px;
+    font-family: 'TAN - PEARL', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 82px;
+    text-align: center;
+    color: #537D07;
+}
+
+/* Green View */
+.green-view {
+    position: absolute;
+    width: 437px;
+    height: 82px;
+    left: calc(50% - 437px/2 + 0.5px);
+    top: 203px;
+    font-family: 'TAN - PEARL', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 82px;
+    text-align: center;
+    color: #537D07;
+}
+
+/* Cool Winds */
+.cool-winds {
+    position: absolute;
+    width: 420px;
+    height: 82px;
+    left: calc(50% - 420px/2);
+    top: 276px;
+    font-family: 'TAN - PEARL', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 82px;
+    text-align: center;
+    color: #537D07;
+}
+
+/* Visit the land of Jungle Book */
+.visit-jungle-book {
+    width: 285px;
+    height: 110px;
+    font-family: 'Le Jour Script Personal Use', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 55px;
+    text-align: center;
+    color: #537D07;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+/* Hover Effects */
+.nav-link:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.book-now-btn:hover {
+    background: #5a4a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .container {
+        width: 100%;
+        min-height: 100vh;
+    }
+    
+    .hero,
+    .about-us {
+        width: 100%;
+        height: 100vh;
+    }
+    
+    .accommodation-hornbill {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        left: 0;
+        top: 0;
+    }
+    
+    .image-3,
+    .bg-image {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+    
+    .header {
+        width: 90%;
+        max-width: 1141px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .header.floating {
+        width: 90%;
+        max-width: 1141px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .machaan-bg {
+        width: 90%;
+        max-width: 1146px;
+        left: 5%;
+        font-size: clamp(50px, 10vw, 120px);
+    }
+    
+    .village-text {
+        width: auto;
+        left: 5%;
+        font-size: clamp(35px, 7vw, 80px);
+    }
+    
+    .description {
+        width: 40%;
+        max-width: 430px;
+        right: 5%;
+        left: auto;
+        font-size: clamp(11px, 1vw, 14px);
+    }
+    
+    /* About Us Section Responsive */
+    .breathes {
+        font-size: clamp(40px, 8vw, 120px);
+        width: 90%;
+    }
+    
+    .where-jungle {
+        font-size: clamp(16px, 2.5vw, 24px);
+        top: 25%;
+    }
+    
+    .about-description {
+        width: 80%;
+        font-size: clamp(12px, 1.8vw, 14px);
+        top: 75%;
+    }
+    
+    .tree-left,
+    .tree-right {
+        width: 25%;
+    }
+    
+    .left-leaves,
+    .leaves-right {
+        width: 30%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        min-height: 100vh;
+    }
+    
+    .hero,
+    .about-us {
+        width: 100%;
+        height: 100vh;
+    }
+    
+    .accommodation-hornbill {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        left: 0;
+        top: 0;
+    }
+    
+    .header {
+        width: 95%;
+        height: auto;
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .header.floating {
+        width: 95%;
+        height: auto;
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .nav {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        position: relative;
+        left: 0;
+        transform: none;
+    }
+    
+    .nav-link.about-us,
+    .nav-link.accommodation,
+    .nav-link.experiences,
+    .nav-link.contact {
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 2px 0;
+        text-align: center;
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+    
+    .book-now-btn {
+        position: relative;
+        right: auto;
+        left: auto;
+        margin: 10px auto;
+        width: 100px;
+        height: 30px;
+    }
+    
+    .machaan-bg {
+        font-size: clamp(30px, 8vw, 50px);
+        top: 65%;
+    }
+    
+    .village-text {
+        font-size: clamp(25px, 6vw, 40px);
+        top: 40%;
+    }
+    
+    .description {
+        width: 90%;
+        right: 5%;
+        top: 55%;
+        font-size: clamp(10px, 2.5vw, 14px);
+        text-align: center;
+    }
+    
+    /* About Us Section Mobile */
+    .breathes {
+        font-size: clamp(30px, 6vw, 80px);
+        width: 95%;
+        top: 45%;
+    }
+    
+    .where-jungle {
+        font-size: clamp(14px, 2vw, 20px);
+        top: 20%;
+    }
+    
+    .about-description {
+        width: 90%;
+        font-size: clamp(10px, 1.5vw, 12px);
+        top: 80%;
+        line-height: 1.3;
+    }
+    
+    .tree-left,
+    .tree-right {
+        width: 20%;
+    }
+    
+    .left-leaves,
+    .leaves-right {
+        width: 25%;
+    }
+    
+    .top-palm {
+        width: 20%;
+        right: 2%;
+    }
+    
+    .frame-4 {
+        width: 80%;
+        left: 10%;
+    }
+    
+    .group-3 {
+        display: none;
+    }
+    
+    /* Accommodation Hornbill Section Mobile */
+    .accommodation-hornbill {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        left: 0;
+        top: 0;
+    }
+    
+    .group-3 {
+        position: relative;
+        width: 90%;
+        height: 60%;
+        left: 5%;
+        top: 10%;
+        display: block;
+    }
+    
+    .whatsapp-image-1,
+    .whatsapp-image-2,
+    .whatsapp-image-3,
+    .whatsapp-image-4,
+    .whatsapp-image-5,
+    .whatsapp-image-6 {
+        position: relative;
+        width: 30%;
+        height: 120px;
+        margin: 10px;
+        display: inline-block;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        min-height: 100vh;
+    }
+    
+    .hero,
+    .about-us {
+        width: 100%;
+        height: 100vh;
+    }
+    
+    .accommodation-hornbill {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        left: 0;
+        top: 0;
+    }
+    
+    .accommodation-kingfisher {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        left: 0;
+        top: 0;
+    }
+    
+    .group-5 {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+    
+    .rectangle-1 {
+        position: relative;
+        width: 100%;
+        height: 50%;
+        left: 0;
+        top: 0;
+    }
+    
+    .hornbill-img {
+        position: relative;
+        width: 100%;
+        height: 50%;
+        left: 0;
+        top: 0;
+    }
+    
+    .frame-7 {
+        position: relative;
+        width: 95%;
+        height: auto;
+        left: 2.5%;
+        top: 5%;
+        gap: 15px;
+    }
+    
+    .frame-6,
+    .frame-5 {
+        width: 100%;
+        height: auto;
+    }
+    
+    .accommodation-title,
+    .hornbill-villa-title,
+    .hornbill-villa-description {
+        width: 100%;
+        height: auto;
+        font-size: clamp(14px, 3vw, 30px);
+    }
+    
+    .image-6 {
+        position: relative;
+        width: 90%;
+        height: 150px;
+        left: 5%;
+        top: 10px;
+    }
+    
+    .accommodation-kingfisher {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        left: 0;
+        top: 0;
+    }
+    
+    .group-5 {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+    
+    .rectangle-1 {
+        position: relative;
+        width: 100%;
+        height: 50%;
+        left: 0;
+        top: 0;
+    }
+    
+    .hornbill-img {
+        position: relative;
+        width: 100%;
+        height: 50%;
+        left: 0;
+        top: 0;
+    }
+    
+    .frame-7 {
+        position: relative;
+        width: 90%;
+        height: auto;
+        left: 5%;
+        top: 10%;
+        gap: 20px;
+    }
+    
+    .frame-6,
+    .frame-5 {
+        width: 100%;
+        height: auto;
+    }
+    
+    .accommodation-title,
+    .hornbill-villa-title,
+    .hornbill-villa-description {
+        width: 100%;
+        height: auto;
+        font-size: clamp(16px, 4vw, 40px);
+    }
+    
+    .image-6 {
+        position: relative;
+        width: 80%;
+        height: 200px;
+        left: 10%;
+        top: 20px;
+    }
+    
+    .header {
+        width: 95%;
+        padding: 10px;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .header.floating {
+        width: 95%;
+        padding: 10px;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .logo {
+        font-size: 14px;
+    }
+    
+    .nav {
+        width: 100%;
+        gap: 5px;
+    }
+    
+    .nav-link.about-us,
+    .nav-link.accommodation,
+    .nav-link.experiences,
+    .nav-link.contact {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+    
+    .book-now-btn {
+        width: 80px;
+        height: 25px;
+        font-size: 9px;
+    }
+    
+    .machaan-bg {
+        font-size: clamp(20px, 6vw, 30px);
+        top: 70%;
+    }
+    
+    .village-text {
+        font-size: clamp(18px, 5vw, 25px);
+        top: 35%;
+    }
+    
+    .description {
+        font-size: clamp(8px, 2vw, 10px);
+        top: 60%;
+        width: 95%;
+    }
+}
+
+/* Accommodation Kingfisher Section */
+.accommodation-kingfisher {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    left: calc(50% - 1280px/2);
+    top: 2160px;
+    background: #FFFFFF;
+}
+
+/* Group 5 */
+.group-5 {
+    position: absolute;
+    width: 1280px;
+    height: 721px;
+    left: 0px;
+    top: 0px;
+}
+
+/* Rectangle 1 */
+.rectangle-1 {
+    position: absolute;
+    width: 651px;
+    height: 721px;
+    left: 0px;
+    top: calc(50% - 721px/2 + 0.5px);
+    background: #7A885F;
+}
+
+/* HORNBILL img */
+.hornbill-img {
+    position: absolute;
+    width: 629.44px;
+    height: 719.75px;
+    right: 0px;
+    top: calc(50% - 719.75px/2 - 0.13px);
+    background: linear-gradient(135deg, #8BC34A, #4CAF50);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* image 6 */
+.image-6 {
+    position: absolute;
+    width: 242px;
+    height: 358px;
+    left: 207px;
+    top: 155px;
+    background: linear-gradient(135deg, #FF9800, #FF5722);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Frame 7 */
+.frame-7 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 310px;
+    position: absolute;
+    width: 429px;
+    height: 521px;
+    left: 104px;
+    top: 117px;
+}
+
+/* Frame 6 */
+.frame-6 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    width: 429px;
+    height: 75px;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* ACCOMODATION */
+.accommodation-title {
+    width: 409px;
+    height: 55px;
+    font-family: 'TAN - PEARL';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 55px;
+    text-align: center;
+    color: #F9F1DC;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+/* Frame 5 */
+.frame-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 21px;
+    width: 429px;
+    height: 136px;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* Hornbill Villa */
+.hornbill-villa-title {
+    width: 429px;
+    height: 55px;
+    font-family: 'Le Jour Script Personal Use';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 55px;
+    text-align: center;
+    color: #F9F1DC;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* Hornbill Villa Description */
+.hornbill-villa-description {
+    width: 429px;
+    height: 60px;
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14.5px;
+    line-height: 106%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #F9F1DC;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/* Features/Experiences Section */
+.features-section {
+    position: absolute;
+    width: 100%;
+    height: 1800px;
+    left: 0;
+    top: 2880px;
+    background: #F9F1DC;
+}
+
+/* Main Container */
+.testimonials-mid-page {
+    position: absolute;
+    width: 1280px;
+    height: 1800px;
+    left: calc(50% - 1280px/2);
+    top: 0;
+    background: #F9F1DC;
+}
+
+/* Header Text */
+.browse-experiences {
+    position: absolute;
+    width: 429px;
+    height: 33px;
+    left: calc(50% - 429px/2 + 0.5px);
+    top: 57px;
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 106%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+/* Main Title */
+.daytime-safari {
+    position: absolute;
+    width: 638px;
+    height: 96px;
+    left: calc(50% - 638px/2);
+    top: 178px;
+    font-family: 'TAN PEARL';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 70px;
+    line-height: 96px;
+    text-align: center;
+    color: #413017;
+    border: 0.5px solid #413017;
+}
+
+/* Feature Items */
+.feature-item {
+    position: absolute;
+    height: 96px;
+    font-family: 'TAN PEARL';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 70px;
+    line-height: 96px;
+    text-align: center;
+    color: #9A8566;
+    border: 0.5px solid #9A8566;
+}
+
+.feature-item.birdwatching {
+    width: 571px;
+    left: 354px;
+    top: 311px;
+}
+
+.feature-item.meditation {
+    width: 442px;
+    left: 418px;
+    top: 444px;
+}
+
+.feature-item.candlelight-dinner {
+    width: 797px;
+    left: 241px;
+    top: 577px;
+}
+
+.feature-item.night-safari {
+    width: 712px;
+    left: 283px;
+    top: 710px;
+}
+
+.feature-item.pool-day {
+    width: 378px;
+    left: 450px;
+    top: 843px;
+}
+
+.feature-item.pottery-walks {
+    width: 894px;
+    left: 192px;
+    top: 976px;
+}
+
+.feature-item.conferences {
+    width: 564px;
+    left: 357px;
+    top: 1109px;
+}
+
+.feature-item.special-events {
+    width: 614px;
+    left: 332px;
+    top: 1236px;
+}
+
+.feature-item.archery {
+    width: 368px;
+    left: 455px;
+    top: 1369px;
+}
+
+.feature-item.music-bonfire {
+    width: 681px;
+    left: 299px;
+    top: 1502px;
+}
+
+.feature-item.game-night {
+    width: 497px;
+    left: 391px;
+    top: 1635px;
+}
+
+/* Decorative Images */
+.decorative-image {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.decorative-image.whatsapp-image-1 {
+    width: 152px;
+    height: 107px;
+    left: 1029px;
+    top: 435px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 107"><rect width="152" height="107" fill="%23f5f5dc" stroke="%239A8566" stroke-width="1"/><circle cx="76" cy="53" r="20" fill="%239A8566" opacity="0.3"/><text x="76" y="58" text-anchor="middle" font-family="Arial" font-size="14" fill="%239A8566" font-weight="bold">Bird</text></svg>');
+}
+
+.decorative-image.really-great-site {
+    width: 140px;
+    height: 176px;
+    left: 65px;
+    top: 135px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 176"><rect width="140" height="176" fill="%23f5f5dc" stroke="%239A8566" stroke-width="1"/><polygon points="70,20 90,60 70,100 50,60" fill="%239A8566" opacity="0.3"/><text x="70" y="140" text-anchor="middle" font-family="Arial" font-size="12" fill="%239A8566">Safari</text></svg>');
+}
+
+.decorative-image.whatsapp-image-3 {
+    width: 103px;
+    height: 77px;
+    left: 1104px;
+    top: 196px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103 77"><rect width="103" height="77" fill="%23f5f5dc" stroke="%239A8566" stroke-width="1"/><circle cx="51.5" cy="38.5" r="15" fill="%239A8566" opacity="0.3"/><text x="51.5" y="43" text-anchor="middle" font-family="Arial" font-size="10" fill="%239A8566">Pool</text></svg>');
+}
+
+.decorative-image.untitled-design-1 {
+    width: 52px;
+    height: 56px;
+    left: 823px;
+    top: 163px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 56"><rect width="52" height="56" fill="%23f5f5dc" stroke="%239A8566" stroke-width="1"/><path d="M26,10 L26,46 M18,18 L34,18 M18,28 L34,28 M18,38 L34,38" stroke="%239A8566" stroke-width="2" fill="none"/></svg>');
+}
+
+.decorative-image.untitled-design-2 {
+    width: 47px;
+    height: 60px;
+    left: 437px;
+    top: 288px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47 60"><rect width="47" height="60" fill="%23f5f5dc" stroke="%239A8566" stroke-width="1"/><path d="M23.5,10 L23.5,50 M15.5,20 L31.5,20 M15.5,30 L31.5,30 M15.5,40 L31.5,40" stroke="%239A8566" stroke-width="2" fill="none"/></svg>');
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+}
+
+.decorative-image.untitled-design-3 {
+    width: 53px;
+    height: 63px;
+    left: 860px;
+    top: 460px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53 63"><rect width="53" height="63" fill="%23f5f5dc" stroke="%239A8566" stroke-width="1"/><circle cx="26.5" cy="31.5" r="12" fill="%239A8566" opacity="0.3"/><text x="26.5" y="36" text-anchor="middle" font-family="Arial" font-size="8" fill="%239A8566">Fire</text></svg>');
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Compressed Video</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .video-test {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        video {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 10px 0;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .success { background: #0a5; }
+        .error { background: #a05; }
+        .info { background: #05a; }
+        .warning { background: #a50; }
+        
+        .file-info {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Compressed Video Test</h1>
+        <p>This page tests different compressed video versions to find the best one for your website.</p>
+        
+        <div class="file-info">
+            <h3>Current Video Files:</h3>
+            <ul id="file-list">
+                <li>Checking files...</li>
+            </ul>
+        </div>
+        
+        <div class="video-test">
+            <h2>Test 1: WebM Version (Best Compression)</h2>
+            <video controls autoplay muted loop playsinline>
+                <source src="public/background-video.webm" type="video/webm">
+                WebM not supported
+            </video>
+            <div class="status info" id="status-webm">Testing WebM...</div>
+        </div>
+        
+        <div class="video-test">
+            <h2>Test 2: Compressed MP4</h2>
+            <video controls autoplay muted loop playsinline>
+                <source src="public/background-video-compressed.mp4" type="video/mp4">
+                MP4 not supported
+            </video>
+            <div class="status info" id="status-compressed">Testing compressed MP4...</div>
+        </div>
+        
+        <div class="video-test">
+            <h2>Test 3: Medium Quality MP4</h2>
+            <video controls autoplay muted loop playsinline>
+                <source src="public/background-video-mq.mp4" type="video/mp4">
+                MP4 not supported
+            </video>
+            <div class="status info" id="status-mq">Testing medium quality...</div>
+        </div>
+        
+        <div class="video-test">
+            <h2>Test 4: Low Quality MP4</h2>
+            <video controls autoplay muted loop playsinline>
+                <source src="public/background-video-lq.mp4" type="video/mp4">
+                MP4 not supported
+            </video>
+            <div class="status info" id="status-lq">Testing low quality...</div>
+        </div>
+        
+        <div class="video-test">
+            <h2>Test 5: Original (Large File)</h2>
+            <video controls autoplay muted loop playsinline>
+                <source src="public/background-video.mp4" type="video/mp4">
+                MP4 not supported
+            </video>
+            <div class="status info" id="status-original">Testing original...</div>
+        </div>
+    </div>
+    
+    <script>
+        const videos = document.querySelectorAll('video');
+        const statuses = {
+            webm: document.getElementById('status-webm'),
+            compressed: document.getElementById('status-compressed'),
+            mq: document.getElementById('status-mq'),
+            lq: document.getElementById('status-lq'),
+            original: document.getElementById('status-original')
+        };
+        
+        // Test file existence
+        const files = [
+            'public/background-video.webm',
+            'public/background-video-compressed.mp4',
+            'public/background-video-mq.mp4',
+            'public/background-video-lq.mp4',
+            'public/background-video.mp4'
+        ];
+        
+        const fileList = document.getElementById('file-list');
+        fileList.innerHTML = '';
+        
+        files.forEach(file => {
+            fetch(file, { method: 'HEAD' })
+                .then(response => {
+                    const li = document.createElement('li');
+                    if (response.ok) {
+                        const size = response.headers.get('content-length');
+                        const sizeMB = size ? (size / (1024 * 1024)).toFixed(2) : 'Unknown';
+                        li.textContent = `${file} - ${sizeMB}MB ✅`;
+                        li.style.color = '#0a5';
+                    } else {
+                        li.textContent = `${file} - Not found ❌`;
+                        li.style.color = '#a05';
+                    }
+                    fileList.appendChild(li);
+                })
+                .catch(error => {
+                    const li = document.createElement('li');
+                    li.textContent = `${file} - Error ❌`;
+                    li.style.color = '#a05';
+                    fileList.appendChild(li);
+                });
+        });
+        
+        // Video event handlers
+        videos.forEach((video, index) => {
+            const fileKey = Object.keys(statuses)[index];
+            const status = statuses[fileKey];
+            
+            video.addEventListener('loadstart', () => {
+                status.textContent = 'Loading started...';
+                status.className = 'status info';
+            });
+            
+            video.addEventListener('loadedmetadata', () => {
+                const duration = video.duration || 0;
+                const width = video.videoWidth || 0;
+                const height = video.videoHeight || 0;
+                status.textContent = `Loaded: ${duration.toFixed(1)}s, ${width}x${height}`;
+                status.className = 'status success';
+            });
+            
+            video.addEventListener('canplay', () => {
+                status.textContent += ' | Can play!';
+                status.className = 'status success';
+            });
+            
+            video.addEventListener('error', (e) => {
+                const error = video.error;
+                let errorMessage = 'Error: ';
+                
+                switch(error.code) {
+                    case 1: errorMessage += 'MEDIA_ERR_ABORTED'; break;
+                    case 2: errorMessage += 'MEDIA_ERR_NETWORK'; break;
+                    case 3: errorMessage += 'MEDIA_ERR_DECODE'; break;
+                    case 4: errorMessage += 'MEDIA_ERR_SRC_NOT_SUPPORTED'; break;
+                    default: errorMessage += 'Unknown error'; break;
+                }
+                
+                status.textContent = errorMessage;
+                status.className = 'status error';
+            });
+            
+            video.addEventListener('play', () => {
+                status.textContent += ' | Playing!';
+            });
+        });
+    </script>
+</body>
+</html>

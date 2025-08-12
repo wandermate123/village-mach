@@ -1,0 +1,21 @@
+{
+  "name": "village-machaan-resort",
+  "version": "1.0.0",
+  "description": "Luxury Jungle Resort Landing Page",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx vite --host",
+    "build": "npx vite build",
+    "preview": "npx vite preview",
+    "server": "node server.js",
+    "deploy-check": "node deploy.js",
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "type": "module"
+}

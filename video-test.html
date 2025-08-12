@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            background: #333;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Test Page</h1>
+    
+    <div class="video-container">
+        <video controls autoplay muted loop playsinline preload="auto">
+            <source src="./public/background-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div class="status" id="status">Checking video status...</div>
+    
+    <script>
+        const video = document.querySelector('video');
+        const status = document.getElementById('status');
+        
+        video.addEventListener('loadstart', () => {
+            status.textContent = 'Video loading started...';
+        });
+        
+        video.addEventListener('loadeddata', () => {
+            status.textContent = 'Video data loaded successfully!';
+        });
+        
+        video.addEventListener('canplay', () => {
+            status.textContent = 'Video can play! Duration: ' + video.duration + ' seconds';
+        });
+        
+        video.addEventListener('error', (e) => {
+            status.textContent = 'Video error: ' + e.message;
+            console.error('Video error:', e);
+        });
+        
+        video.addEventListener('play', () => {
+            status.textContent = 'Video is playing!';
+        });
+    </script>
+</body>
+</html>

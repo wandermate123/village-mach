@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Debug</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        video {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 10px 0;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            background: #333;
+            border-radius: 5px;
+        }
+        .error { background: #500; }
+        .success { background: #050; }
+        .info { background: #005; }
+    </style>
+</head>
+<body>
+    <h1>Video Debug Page</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Direct Video Element</h2>
+        <video controls>
+            <source src="public/background-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="status info" id="status1">Testing...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Video with Autoplay</h2>
+        <video controls autoplay muted loop playsinline>
+            <source src="public/background-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="status info" id="status2">Testing...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Video with Poster</h2>
+        <video controls poster="public/bg image.png">
+            <source src="public/background-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="status info" id="status3">Testing...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 4: Background Video Style</h2>
+        <div style="width: 100%; height: 300px; position: relative; overflow: hidden;">
+            <video style="position: absolute; width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline>
+                <source src="public/background-video.mp4" type="video/mp4">
+            </video>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;">
+                <h3 style="margin: 0; color: white;">Background Video Test</h3>
+                <p style="margin: 10px 0 0 0; color: white;">This text should be overlaid on the video</p>
+            </div>
+        </div>
+        <div class="status info" id="status4">Testing...</div>
+    </div>
+    
+    <script>
+        const videos = document.querySelectorAll('video');
+        const statuses = [
+            document.getElementById('status1'),
+            document.getElementById('status2'),
+            document.getElementById('status3'),
+            document.getElementById('status4')
+        ];
+        
+        videos.forEach((video, index) => {
+            const status = statuses[index];
+            
+            video.addEventListener('loadstart', () => {
+                status.textContent = 'Loading started...';
+                status.className = 'status info';
+            });
+            
+            video.addEventListener('loadedmetadata', () => {
+                status.textContent = `Metadata loaded. Duration: ${video.duration}s, Size: ${video.videoWidth}x${video.videoHeight}`;
+                status.className = 'status success';
+            });
+            
+            video.addEventListener('canplay', () => {
+                status.textContent += ' | Can play!';
+                status.className = 'status success';
+            });
+            
+            video.addEventListener('error', (e) => {
+                const error = video.error;
+                let errorMessage = 'Video error: ';
+                
+                switch(error.code) {
+                    case 1: errorMessage += 'MEDIA_ERR_ABORTED'; break;
+                    case 2: errorMessage += 'MEDIA_ERR_NETWORK'; break;
+                    case 3: errorMessage += 'MEDIA_ERR_DECODE'; break;
+                    case 4: errorMessage += 'MEDIA_ERR_SRC_NOT_SUPPORTED'; break;
+                    default: errorMessage += 'Unknown error'; break;
+                }
+                
+                status.textContent = errorMessage;
+                status.className = 'status error';
+                console.error('Video error:', error);
+            });
+            
+            video.addEventListener('play', () => {
+                status.textContent += ' | Playing!';
+            });
+        });
+        
+        // Test file existence
+        fetch('public/background-video.mp4', { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Video file exists and is accessible');
+                    console.log('Content-Type:', response.headers.get('content-type'));
+                    console.log('Content-Length:', response.headers.get('content-length'));
+                } else {
+                    console.error('Video file not accessible:', response.status);
+                }
+            })
+            .catch(error => {
+                console.error('Error checking video file:', error);
+            });
+    </script>
+</body>
+</html>

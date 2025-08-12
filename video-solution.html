@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Video Background Solution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Video Background */
+        .bg-video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.8) contrast(1.1);
+        }
+        
+        /* Video Overlay */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        /* Fallback Background */
+        .bg-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #404040);
+            z-index: 0;
+            display: none;
+        }
+        
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+        
+        /* Loading Indicator */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        /* Status Messages */
+        .status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <!-- Video Background -->
+        <video class="bg-video" autoplay muted loop playsinline preload="metadata">
+            <source src="public/sample-video.mp4" type="video/mp4">
+            <source src="public/background-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Video Overlay -->
+        <div class="video-overlay"></div>
+        
+        <!-- Fallback Background -->
+        <div class="bg-image"></div>
+        
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading">Loading video...</div>
+        
+        <!-- Content -->
+        <div class="content">
+            <h1 class="title">Village Machaan</h1>
+            <h2 class="subtitle">Luxury Jungle Resort</h2>
+            <p class="description">
+                Experience the perfect blend of luxury and nature in the heart of Pench National Park, 
+                Madhya Pradesh, India. Where the jungle breathes and luxury meets wilderness.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Status Display -->
+    <div class="status" id="status">Initializing...</div>
+    
+    <script>
+        const video = document.querySelector('.bg-video');
+        const fallbackImage = document.querySelector('.bg-image');
+        const loading = document.getElementById('loading');
+        const status = document.getElementById('status');
+        
+        function updateStatus(message) {
+            status.textContent = message;
+            console.log(message);
+        }
+        
+        // Video event handlers
+        video.addEventListener('loadstart', () => {
+            updateStatus('Video loading started...');
+            loading.style.display = 'block';
+        });
+        
+        video.addEventListener('loadedmetadata', () => {
+            updateStatus(`Video metadata loaded. Duration: ${video.duration}s, Size: ${video.videoWidth}x${video.videoHeight}`);
+        });
+        
+        video.addEventListener('canplay', () => {
+            updateStatus('Video can play! Hiding fallback image.');
+            loading.style.display = 'none';
+            fallbackImage.style.display = 'none';
+        });
+        
+        video.addEventListener('play', () => {
+            updateStatus('Video is playing!');
+        });
+        
+        video.addEventListener('error', (e) => {
+            const error = video.error;
+            let errorMessage = 'Video error: ';
+            
+            switch(error.code) {
+                case 1: errorMessage += 'MEDIA_ERR_ABORTED'; break;
+                case 2: errorMessage += 'MEDIA_ERR_NETWORK'; break;
+                case 3: errorMessage += 'MEDIA_ERR_DECODE'; break;
+                case 4: errorMessage += 'MEDIA_ERR_SRC_NOT_SUPPORTED'; break;
+                default: errorMessage += 'Unknown error'; break;
+            }
+            
+            updateStatus(errorMessage);
+            loading.style.display = 'none';
+            fallbackImage.style.display = 'block';
+        });
+        
+        // Check if video file exists
+        fetch('public/sample-video.mp4', { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    updateStatus('Sample video file accessible');
+                } else {
+                    updateStatus('Sample video file not accessible, trying main video');
+                }
+            })
+            .catch(error => {
+                updateStatus('Error checking sample video: ' + error.message);
+            });
+        
+        // Fallback timer - if video doesn't load in 5 seconds, show fallback
+        setTimeout(() => {
+            if (video.readyState < 2) { // HAVE_CURRENT_DATA
+                updateStatus('Video taking too long to load, showing fallback');
+                fallbackImage.style.display = 'block';
+                loading.style.display = 'none';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
