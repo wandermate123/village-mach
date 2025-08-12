@@ -17,7 +17,7 @@ body {
 .container {
     position: relative;
     width: 100%;
-    min-height: 4680px; /* 100vh + 720px for 3rd page + 720px for 4th page + 1800px for features section + 1440px top offset */
+    min-height: 5400px; /* 100vh + 720px for 3rd page + 720px for 4th page + 1800px for features section + 720px for testimonials section + 1440px top offset */
     margin: 0;
     background: #000;
     overflow-x: hidden;
@@ -1606,4 +1606,143 @@ body {
     left: 860px;
     top: 460px;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53 63"><rect width="53" height="63" fill="%23f5f5dc" stroke="%239A8566" stroke-width="1"/><circle cx="26.5" cy="31.5" r="12" fill="%239A8566" opacity="0.3"/><text x="26.5" y="36" text-anchor="middle" font-family="Arial" font-size="8" fill="%239A8566">Fire</text></svg>');
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    position: absolute;
+    width: 100%;
+    height: 720px;
+    left: 0;
+    top: 4680px;
+    background: linear-gradient(180deg, #F9F1DC 0%, #7CA0AD 33.88%, #7DA0AD 62.36%);
+}
+
+/* Main Container */
+.testimonials-mid-page-new {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    left: calc(50% - 1280px/2);
+    top: 0;
+    background: linear-gradient(180deg, #F9F1DC 0%, #7CA0AD 33.88%, #7DA0AD 62.36%);
+}
+
+/* Background Image */
+.pench-website-24 {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    left: 0;
+    top: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720"><defs><linearGradient id="sunset" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23FFE4B5;stop-opacity:1" /><stop offset="50%" style="stop-color:%23FFB347;stop-opacity:1" /><stop offset="100%" style="stop-color:%23FF8C42;stop-opacity:1" /></linearGradient></defs><rect width="1280" height="720" fill="url(%23sunset)"/><circle cx="640" cy="200" r="80" fill="%23FFF8DC" opacity="0.9"/><path d="M0,400 Q320,350 640,400 Q960,450 1280,400 L1280,720 L0,720 Z" fill="%23DAA520" opacity="0.6"/><path d="M200,100 Q400,50 600,100 Q800,150 1000,100 L1000,300 L200,300 Z" fill="%23228B22" opacity="0.8"/><path d="M100,80 Q300,30 500,80 Q700,130 900,80 L900,280 L100,280 Z" fill="%23228B22" opacity="0.8"/><circle cx="150" cy="120" r="3" fill="%23000" opacity="0.7"/><circle cx="170" cy="110" r="2" fill="%23000" opacity="0.7"/><circle cx="190" cy="125" r="2.5" fill="%23000" opacity="0.7"/><circle cx="210" cy="115" r="2" fill="%23000" opacity="0.7"/><circle cx="230" cy="130" r="3" fill="%23000" opacity="0.7"/></svg>');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Untitled Design 3 */
+.untitled-design-3-new {
+    position: absolute;
+    width: 159px;
+    height: 78px;
+    left: 266px;
+    top: 158px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159 78"><rect width="159" height="78" fill="%23F9F1DC" stroke="%23F9F1DC" stroke-width="1.5" opacity="0.8"/><path d="M20,20 L40,40 L60,20 L80,40 L100,20 L120,40 L140,20" stroke="%23F9F1DC" stroke-width="2" fill="none"/><circle cx="30" cy="30" r="5" fill="%23F9F1DC" opacity="0.6"/><circle cx="70" cy="30" r="5" fill="%23F9F1DC" opacity="0.6"/><circle cx="110" cy="30" r="5" fill="%23F9F1DC" opacity="0.6"/></svg>');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Group 8 Container */
+.group-8 {
+    position: absolute;
+    width: 2540px;
+    height: 920px;
+    left: -743px;
+    top: -153px;
+}
+
+/* Pench Website 23 - Right Side */
+.pench-website-23-right {
+    position: absolute;
+    width: 975px;
+    height: 848px;
+    left: 822px;
+    top: -81px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 975 848"><defs><linearGradient id="leaves" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23228B22;stop-opacity:0.3" /><stop offset="100%" style="stop-color:%2332CD32;stop-opacity:0.3" /></linearGradient></defs><rect width="975" height="848" fill="url(%23leaves)"/><path d="M100,100 Q200,50 300,100 Q400,150 500,100 Q600,50 700,100 Q800,150 900,100" stroke="%23228B22" stroke-width="3" fill="none" opacity="0.6"/><path d="M150,200 Q250,150 350,200 Q450,250 550,200 Q650,150 750,200 Q850,250 950,200" stroke="%23228B22" stroke-width="2" fill="none" opacity="0.6"/><circle cx="200" cy="150" r="8" fill="%23228B22" opacity="0.4"/><circle cx="400" cy="150" r="6" fill="%23228B22" opacity="0.4"/><circle cx="600" cy="150" r="7" fill="%23228B22" opacity="0.4"/><circle cx="800" cy="150" r="5" fill="%23228B22" opacity="0.4"/></svg>');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Pench Website 23 - Left Side */
+.pench-website-23-left {
+    position: absolute;
+    width: 1542px;
+    height: 873px;
+    left: -743px;
+    top: -153px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1542 873"><defs><linearGradient id="leavesLeft" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23228B22;stop-opacity:0.3" /><stop offset="100%" style="stop-color:%2332CD32;stop-opacity:0.3" /></linearGradient></defs><rect width="1542" height="873" fill="url(%23leavesLeft)"/><path d="M100,100 Q300,50 500,100 Q700,150 900,100 Q1100,50 1300,100 Q1400,150 1500,100" stroke="%23228B22" stroke-width="3" fill="none" opacity="0.6"/><path d="M150,200 Q350,150 550,200 Q750,250 950,200 Q1150,150 1350,200 Q1450,250 1550,200" stroke="%23228B22" stroke-width="2" fill="none" opacity="0.6"/><circle cx="200" cy="150" r="8" fill="%23228B22" opacity="0.4"/><circle cx="400" cy="150" r="6" fill="%23228B22" opacity="0.4"/><circle cx="600" cy="150" r="7" fill="%23228B22" opacity="0.4"/><circle cx="800" cy="150" r="5" fill="%23228B22" opacity="0.4"/><circle cx="1000" cy="150" r="6" fill="%23228B22" opacity="0.4"/><circle cx="1200" cy="150" r="7" fill="%23228B22" opacity="0.4"/><circle cx="1400" cy="150" r="5" fill="%23228B22" opacity="0.4"/></svg>');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* CONTACT Text */
+.contact-text {
+    position: absolute;
+    width: 864px;
+    height: 206px;
+    right: 209px;
+    top: 197px;
+    font-family: 'TAN PEARL';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 150px;
+    line-height: 206px;
+    text-align: center;
+    color: #F9F1DC;
+    border: 1.5px solid #F9F1DC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Today Text */
+.today-text {
+    position: absolute;
+    width: 318px;
+    height: 157px;
+    right: 81px;
+    top: 314px;
+    font-family: 'Le Jour Script Personal Use';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 143px;
+    line-height: 157px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contact Information */
+.contact-info {
+    position: absolute;
+    width: 429px;
+    height: 56px;
+    right: 426px;
+    top: 431px;
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 106%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    flex-direction: column;
+    justify-content: center;
 }
